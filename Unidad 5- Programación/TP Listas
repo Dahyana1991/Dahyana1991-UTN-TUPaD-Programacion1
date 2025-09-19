@@ -1,0 +1,272 @@
+#1) Crear una lista con las notas de 10 estudiantes.
+#• Mostrar la lista completa.
+#• Calcular y mostrar el promedio.
+#• Indicar la nota más alta y la más baja.
+
+notas_estudiantes=[10 , 8.5 , 9 , 4 , 5 , 7.5 , 8 , 8 , 6 , 7 ]
+
+print("Las notas de 10 estudiantes son: " , notas_estudiantes)
+
+promedio_notas = sum(notas_estudiantes) / 10
+
+print("El promedio de las notas de los 10 estudiantes es: " , promedio_notas)
+
+print("La nota mas alta es: ",max(notas_estudiantes))
+print("La nota mas baja es: ",min(notas_estudiantes))
+
+#2) Pedir al usuario que cargue 5 productos en una lista.
+#• Mostrar la lista ordenada alfabéticamente. Investigue el uso del método sorted().
+#• Preguntar al usuario qué producto desea eliminar y actualizar la lista.
+
+pto1=input("Ingrese primer producto: ")
+pto2=input("Ingrese segundo producto: ")
+pto3=input("Ingrese tercer producto: ")
+pto4=input("Ingrese cuarto producto: ")
+pto5=input("Ingrese quinto producto: ")
+
+lista_productos=[pto1 , pto2, pto3 , pto4 , pto5]
+
+lista_ordenada= sorted(lista_productos)
+
+print("La lista de productos ordenado es: " , lista_ordenada)
+
+producto_eliminado = input("Ingrese el producto que desea eliminar del listado: ")
+
+if producto_eliminado in lista_productos:
+    lista_productos.remove(producto_eliminado)
+    print("La lista actualizada de productos es:", sorted(lista_productos))
+else:
+    print(f"El producto '{producto_eliminado}' no se encuentra en la lista.")
+
+#3) Generar una lista con 15 números enteros al azar entre 1 y 100.
+#• Crear una lista con los pares y otra con los impares.
+#• Mostrar cuántos números tiene cada lista.
+
+import random
+
+numeros_al_azar= [random.randint(1,100) for i in range(15)]
+print("Lista numeros enteros: ", numeros_al_azar)
+
+lista_pares = []
+lista_impares =[]
+
+for numero in numeros_al_azar:
+    if numero % 2 ==0:
+        lista_pares.append(numero)
+    else:
+        lista_impares.append(numero)
+    
+print("Lista de numeros pares: ", lista_pares)
+print("Cantidad de pares: ",len(lista_pares))
+print("Lista de numeros impares: ", lista_impares)
+print("Cantidad de impares: ",len(lista_impares))
+
+
+ #4) Dada una lista con valores repetidos:
+# Crear una nueva lista sin elementos repetidos.
+# • Mostrar el resultado.
+
+lista_repetidos=[1,3,5,3,7,1,9,5,3]
+
+print("La lista original es: ", lista_repetidos)
+
+lista_sin_repetidos =[]
+
+for numero in lista_repetidos:
+    if numero not in lista_sin_repetidos:
+        lista_sin_repetidos.append(numero)
+
+print("La lista sin numeros repetidos: " , lista_sin_repetidos)
+
+#5) Crear una lista con los nombres de 8 estudiantes presentes en clase.
+# • Preguntar al usuario si quiere agregar un nuevo estudiante o eliminar uno existente.
+# • Mostrar la lista final actualizada
+
+estudiantes_presentes=["Pedro","Jose","Luis","Ana","Emma","Atenas","Fabian","Alicia"]
+
+print("Los estudiantes presentes son: ", estudiantes_presentes)
+
+nuevo_estudiante=input("Ingrese nombre de nuevo estudiante: ")
+
+if nuevo_estudiante != estudiantes_presentes :
+    estudiantes_presentes.append(nuevo_estudiante)
+    print("Se agregó el nuevo estudiante: ",nuevo_estudiante)
+
+elimino_estudiante=input("Ingrese estudiante que quiere eliminar del listado: ")
+
+
+if elimino_estudiante in estudiantes_presentes:
+        estudiantes_presentes.remove(elimino_estudiante)
+        print("Se eliminó el estudiante: ",elimino_estudiante)
+else:
+        print("El estudiantes ingresado no se encuentra en la lista de presentes")
+
+print("Los estudiantes presentes son: ", estudiantes_presentes)
+
+
+#6) Dada una lista con 7 números, rotar todos los elementos una posición hacia la derecha.
+
+lista = [14, 1, 9, 2, 27, 8, 3]
+
+print("lista original: ", lista)
+
+ultimo_numero = lista[-1]
+
+lista_rotada = [ultimo_numero] + lista[0:-1]
+
+print("La lista rotada hacia la derecha: ", lista_rotada)
+
+#7) Crear una matriz (lista anidada) de 7x2 con las temperaturas mínimas y máximas de una semana.
+# • Calcular el promedio de las mínimas y el de las máximas.
+# • Mostrar en qué día se registró la mayor amplitud térmica.
+
+matriz_temperaturas=[
+    [20.5 , 37],
+    [21 , 37.7],
+    [35 , 37],
+    [15.1 , 21.5],
+    [18 , 25.1],
+    [28 , 31],
+    [32 , 37]
+]
+
+promedio_minimas=( matriz_temperaturas[0][0] + matriz_temperaturas[1][0] + matriz_temperaturas[2][0] + matriz_temperaturas[3][0] + matriz_temperaturas[4][0] + matriz_temperaturas[5][0] + matriz_temperaturas[6][0])/7
+
+print("El promedio de las temperaturas mínimas fue: " , promedio_minimas)
+
+promedio_maximas=( matriz_temperaturas[0][1] + matriz_temperaturas[1][1] + matriz_temperaturas[2][1] + matriz_temperaturas[3][1] + matriz_temperaturas[4][1] + matriz_temperaturas[5][1] + matriz_temperaturas[6][1])/7
+
+print("El promedio de las temperaturas maximas fue: " , promedio_maximas)
+
+mayor_amplitud = 0
+dia_mayor_amplitud = 0
+
+for cont in range(len(matriz_temperaturas)):
+    amplitud = matriz_temperaturas[cont][1] - matriz_temperaturas[cont][0]
+    if amplitud > mayor_amplitud:
+        mayor_amplitud = amplitud
+        dia_mayor_amplitud = cont + 1
+
+print("La mayor amplitud térmica fue de", mayor_amplitud, "grados en el día", dia_mayor_amplitud)
+
+
+#8) Crear una matriz con las notas de 5 estudiantes en 3 materias.
+# • Mostrar el promedio de cada estudiante.
+# • Mostrar el promedio de cada materia
+
+notas_estudiantes = [
+    [8, 7, 6],
+    [3, 5, 7],
+    [9, 8, 8],
+    [3, 5, 5],
+    [4, 4, 5]
+]
+
+cantidad_estudiantes = len(notas_estudiantes)
+cantidad_materias = len (notas_estudiantes [0])
+
+for i in range (cantidad_estudiantes):
+    promedio_estudiantes = sum (notas_estudiantes [i]) / cantidad_materias
+    print(f"El promedio del estudiante {i+1} es: " , promedio_estudiantes)
+
+for j in range (cantidad_materias):
+    suma_de_materias = 0
+    for k in range (cantidad_estudiantes):
+        suma_de_materias += notas_estudiantes [k][j]
+    promedio_materia = suma_de_materias / cantidad_estudiantes
+    print(f"El promedio la materia {j+1} es: ", promedio_materia)
+
+    
+#9) Representar un tablero de Ta-Te-Ti como una lista de listas (3x3).
+# • Inicializarlo con guiones "-" representando casillas vacías.
+# • Permitir que dos jugadores ingresen posiciones (fila, columna) para colocar "X" o "O".
+# • Mostrar el tablero después de cada jugada.
+
+tablero_TaTeTi =[]
+
+for i in range(3):
+    fila = []
+    for j in range(3):
+        fila.append("-")
+    tablero_TaTeTi.append(fila)
+
+for fila in tablero_TaTeTi:
+    for espacio in fila:
+        print (espacio, end= " ")
+
+    print ()
+
+jugador_uno = "X"
+jugadas = 0
+
+while jugadas < 9:
+
+    print(f"turno jugador {jugador_uno}")
+
+    fila = int (input ("Ingrese la fila (0-2): "))
+    columna = int (input ("Ingrese la columna (0-2): "))
+
+    if fila < 0 or fila > 2 or columna < 0 or columna > 2: 
+        print ( "No existe posicion, Intente nuevamente")
+        continue
+
+    if tablero_TaTeTi [fila] [columna] == "-":
+        tablero_TaTeTi [fila] [columna] = jugador_uno
+        jugadas += 1
+    else:
+        print("Lugar ocupado. Intente de nuevo")   
+        continue
+
+    for fila in tablero_TaTeTi:
+        for espacio in fila:
+            print (espacio, end= "-")
+        print()
+
+    if jugador_uno == "X":
+        jugador_uno = "O"
+    else:
+        jugador_uno = "X" 
+               
+            
+
+
+#10) Una tienda registra las ventas de 4 productos durante 7 días, en una matriz de 4x7.
+# • Mostrar el total vendido por cada producto.
+# • Mostrar el día con mayores ventas totales.
+# • Indicar cuál fue el producto más vendido en la semana.
+
+ventas_productos = [
+    [1, 10, 3, 2, 5, 3, 1],
+    [5, 1, 3, 2, 3, 5, 5],
+    [8, 5, 3, 2, 5, 4, 4],
+    [7, 0, 5, 5, 8, 3, 5]
+]
+
+total_por_producto = []
+for i in range(len(ventas_productos)):
+    total_producto = 0
+    for j in range(len(ventas_productos[i])):
+        total_producto += ventas_productos[i][j]
+    total_por_producto.append(total_producto)
+
+print("Total de ventas por producto:")
+
+
+for i in range(len(total_por_producto)):
+    print(f"Producto {i+1}: {total_por_producto[i]}")
+mayor_ventas = 0
+dia_mayor = 0
+for d in range(7):
+    total_dia = sum(ventas_productos[p][d] for p in range(4))
+    if total_dia > mayor_ventas:
+        mayor_ventas = total_dia
+        dia_mayor = d + 1
+print(f"El día con mayores ventas totales fue el día {dia_mayor} con {mayor_ventas} ventas")
+
+mayor_total = 0
+producto_mas_vendido = 0
+for i in range(4):
+    if total_por_producto[i] > mayor_total:
+        mayor_total = total_por_producto[i]
+        producto_mas_vendido = i + 1
+print(f"El producto más vendido en la semana fue el producto {producto_mas_vendido} con {mayor_total} unidades")
