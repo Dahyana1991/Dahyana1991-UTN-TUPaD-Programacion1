@@ -1,0 +1,148 @@
+import os
+
+NOMBRE_ARCHIVO = "productos.txt"
+
+# 1. Crear archivo inicial con productos
+def crear_archivo_inicial():
+    print("--- 1. Creando archivo inicial ---")
+    
+    # Abre en modo 'w' para crear/sobrescribir el archivo
+    with open(NOMBRE_ARCHIVO, 'w') as archivo:
+        archivo.write("Lapicera,120.5,30\n")
+        archivo.write("Cuaderno,350.0,15\n")
+        archivo.write("Regla,80.75,50\n")
+    
+    print(f"Archivo **{NOMBRE_ARCHIVO}** creado con 3 productos.")
+
+
+# 2, 4 y 5. Lectura, Carga en Diccionarios y Búsqueda
+def cargar_y_procesar_productos():
+    """Lee el archivo y carga los datos en una lista de diccionarios (Act. 2 y 4)."""
+    productos_en_memoria = []
+    
+    print("\n--- 2 y 4. Leyendo, mostrando y cargando productos ---")
+    
+    # Verifica si el archivo existe
+    if not os.path.exists(NOMBRE_ARCHIVO):
+        print(f"Error: El archivo **{NOMBRE_ARCHIVO}** no fue encontrado.")
+        return productos_en_memoria 
+        
+    with open(NOMBRE_ARCHIVO, 'r') as archivo:
+        for linea in archivo:
+            datos = linea.strip().split(",")
+            
+            # Verifica que la línea tenga el formato correcto (nombre,precio,cantidad)
+            if len(datos) == 3:
+                producto = {
+                    "nombre": datos[0],
+                    "precio": float(datos[1]),  
+                    "cantidad": int(datos[2])   
+                }
+                productos_en_memoria.append(producto)
+                
+                # Muestra los datos (Actividad 2)
+                print(f"Producto: {producto['nombre']} | Precio: ${producto['precio']:.2f} | Cantidad: {producto['cantidad']}")
+            else:
+                print(f"Advertencia: Línea con formato incorrecto, ignorada: {linea.strip()}")
+                    
+    return productos_en_memoria
+
+
+def buscar_producto(productos_list):
+    """Busca un producto por nombre en la lista cargada (Act. 5)."""
+    print("\n--- 5. Buscando producto por nombre ---")
+    
+    if not productos_list:
+        print("No hay productos cargados en memoria para buscar.")
+        return
+        
+    nombre_buscado = input("Ingrese el nombre del producto a buscar: ")
+    encontrado = False
+    
+    for producto in productos_list:
+        if producto["nombre"].lower() == nombre_buscado.lower():
+            print(f"\n**Producto Encontrado**")
+            print(f"Nombre: {producto['nombre']}")
+            print(f"Precio: ${producto['precio']:.2f}")
+            print(f"Cantidad: {producto['cantidad']}")
+            encontrado = True
+            break
+            
+    if not encontrado:
+        print(f"Error: Producto **{nombre_buscado}** no encontrado.")
+
+
+# 3. Agregar productos desde teclado
+def agregar_producto_al_archivo():
+    """Pide datos al usuario y los agrega al archivo (Act. 3)."""
+    print("\n--- 3. Agregando nuevo producto desde teclado ---")
+    
+    nombre = input("Ingrese el nombre del nuevo producto: ")
+    
+    # 1. Validación del Precio 
+    while True:
+        precio_str = input("Ingrese el precio (ej: 15.5): ")
+        
+        num_puntos = precio_str.count('.')
+        # Crea la cadena sin puntos para verificar que el resto sean dígitos
+        precio_sin_punto = "".join([c for c in precio_str if c != '.'])
+        
+        if (num_puntos <= 1) and precio_sin_punto.isdigit():
+            precio = float(precio_str)
+            break 
+        else:
+            print("Error: El precio debe ser un número decimal válido (solo un punto).")
+            
+    # 2. Validación de la Cantidad 
+    while True:
+        cantidad_str = input("Ingrese la cantidad (un número entero): ")
+        if cantidad_str.isdigit():
+            cantidad = int(cantidad_str)
+            break
+        else:
+            print("Error: La cantidad debe ser un número entero.")
+            
+    nueva_linea = f"{nombre},{precio},{cantidad}\n"
+    
+    # Abre en modo 'a' (append) para añadir al final (Actividad 3)
+    with open(NOMBRE_ARCHIVO, 'a') as archivo:
+        archivo.write(nueva_linea)
+    
+    print(f"El producto **{nombre}** ha sido agregado a **{NOMBRE_ARCHIVO}**.")
+
+
+# 6. Guardar los productos actualizados
+def guardar_productos_actualizados(productos_list):
+    """Sobrescribe el archivo productos.txt con los datos de la lista (Act. 6)."""
+    
+    print("\n--- 6. Guardando productos actualizados ---")
+    
+    # Sobrescribe el archivo completo (modo 'w')
+    with open(NOMBRE_ARCHIVO, 'w') as archivo:
+        for producto in productos_list:
+            
+            linea_a_escribir = f"{producto['nombre']},{producto['precio']},{producto['cantidad']}\n"
+            archivo.write(linea_a_escribir)
+            
+    print(f"El archivo **{NOMBRE_ARCHIVO}** ha sido **sobrescrito** con {len(productos_list)} productos.")
+
+
+# FLUJO PRINCIPAL DEL PROGRAMA
+if __name__ == "__main__":
+    
+    crear_archivo_inicial()
+    
+    # 2, 4. Carga los productos iniciales
+    productos_en_memoria = cargar_y_procesar_productos()
+    
+    # 5. Consulta un producto
+    buscar_producto(productos_en_memoria)
+    
+    # 3. Agrega un nuevo producto al archivo
+    agregar_producto_al_archivo()
+    
+    # Vuelve a cargar la lista para incluir el producto recién agregado
+    productos_finales = cargar_y_procesar_productos()
+    
+    # 6. Guarda la lista completa (sobrescribiendo el archivo)
+    guardar_productos_actualizados(productos_finales)
